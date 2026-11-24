@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>مكتبة البرومتات</title>
+<style>
+:root{
+  --bg:#0E0618;          /* خلفية الصفحة */
+  --surface:#241A3D;     /* خلفية البطاقات */
+  --surface-2:#1A1230;   /* عناصر داخل البطاقات */
+  --red:#7B4FE0;         /* البنفسجي الأساسي */
+  --red-light:#B995FF;   /* البنفسجي الفاتح للتوهج */
+  --red-line:rgba(185,149,255,.22); /* فواصل خفيفة */
+  --mint:#35D49A;   /* الأخضر النعناعي للأزرار والتفاصيل */
+  --text:#FFFFFF;
+  --dim:#B8AFD0;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--text);font-family:"Segoe UI",Tahoma,"Noto Naskh Arabic",Arial,sans-serif}
+body{min-height:100vh;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
+header{position:sticky;top:0;z-index:5;background:rgba(36,20,76,.96);backdrop-filter:blur(8px);border-bottom:2px solid var(--red);display:flex;align-items:center;gap:12px;padding:14px 16px}
+header h1{margin:0;font-size:1.2rem;flex:1;background:linear-gradient(90deg,#B995FF,#5B6CFF);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
+#back{background:transparent;border:2px solid var(--red);color:var(--text);border-radius:10px;padding:6px 14px;font:inherit;cursor:pointer;transition:background .15s}
+#back:hover,#back:focus-visible{background:var(--red);outline:none}
+#back[hidden]{display:none}
+main{max-width:900px;margin:0 auto;padding:18px 16px 40px}
+.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+.tile{border:2px solid var(--red);border-radius:12px;padding:16px 12px;text-align:center;font-size:1rem;font-weight:700;cursor:pointer;background:var(--surface);color:var(--text);font-family:inherit;transition:background .15s,border-color .15s,box-shadow .15s}
+.tile:hover,.tile:focus-visible{background:var(--surface-2);border-color:var(--red-light);box-shadow:0 0 0 3px rgba(185,149,255,.25);outline:none}
+.tile small{display:block;margin-top:4px;font-weight:400;color:var(--dim);font-size:.78rem}
+.card{box-shadow:0 0 22px rgba(117,70,216,.18);border:2px solid var(--red);border-radius:16px;padding:14px;margin-bottom:20px;background:var(--surface)}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.side{text-align:center}
+.tag{font-weight:700;margin-bottom:8px;color:var(--text)}
+/* عرض الصورة كاملة داخل المربع بدون أي اقتطاع */
+.side img{width:100%;aspect-ratio:3/4;object-fit:contain;border:2px solid var(--red);border-radius:12px;display:block;background:var(--surface-2)}
+.side video{width:100%;aspect-ratio:3/4;object-fit:contain;border:2px solid var(--red);border-radius:12px;display:block;background:#000}
+.vph{width:100%;aspect-ratio:3/4;border:2px solid var(--red);border-radius:12px;background:var(--surface-2);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;color:var(--dim);font-size:.9rem}
+.vph svg{width:44px;height:44px;fill:var(--red)}
+.prompt{display:flex;gap:12px;align-items:flex-start;margin-top:14px;border-top:1px solid var(--red-line);padding-top:14px}
+.prompt p{flex:1;margin:0;line-height:1.8;white-space:pre-wrap;overflow-wrap:anywhere;font-size:.95rem;color:var(--text)}
+.copy{flex:none;position:sticky;top:76px;background:linear-gradient(135deg,#7546D8,#5B6CFF);color:#fff;border:0;border-radius:10px;padding:10px 16px;font:inherit;font-weight:700;cursor:pointer;min-width:78px;transition:background .15s}
+.copy:hover,.copy:focus-visible{background:var(--red-light);color:#100F19;outline:none}
+.copy.ok{background:var(--text);color:var(--bg)}
+.empty{text-align:center;color:var(--dim);padding:40px 0}
+/* تحسين جانب "بعد" */
+.tag{display:inline-block;padding:4px 18px;border:1px solid var(--red-line);border-radius:999px;font-size:.9rem;background:var(--surface-2);color:var(--dim)}
+.side:nth-child(2) .tag{background:linear-gradient(135deg,#7546D8,#5B6CFF);border-color:transparent;color:#fff;font-weight:800;box-shadow:0 0 14px rgba(185,149,255,.45)}
+.side:nth-child(2) .tag::before{content:"\2726\00a0"}
+.side:nth-child(2) img,.side:nth-child(2) video,.side:nth-child(2) .vph{border-color:var(--red-light);box-shadow:0 0 0 1px rgba(185,149,255,.35),0 0 26px rgba(185,149,255,.28)}
+.side:nth-child(1) img{filter:saturate(.85) brightness(.92)}
+.pair{gap:14px}
+.side video{object-fit:contain}
+/* ألوان مطابقة لتنسيق الصورة المرجعية */
+body{background-image:radial-gradient(120% 55% at 50% -8%,#5B2BB8 0%,rgba(91,43,184,.35) 38%,rgba(14,6,24,0) 70%);background-repeat:no-repeat;background-attachment:fixed}
+header{background:linear-gradient(180deg,#5B2FC0 0%,#2C1560 100%);border-bottom-color:rgba(185,149,255,.35)}
+.card,.tile{background:linear-gradient(160deg,#2E2250 0%,#1D1436 100%);border-color:rgba(185,149,255,.28)}
+.tile:hover,.tile:focus-visible{background:linear-gradient(160deg,#37295E 0%,#241A44 100%)}
+.copy{background:linear-gradient(135deg,#35D49A,#1FAE7C);color:#06150F}
+.copy:hover,.copy:focus-visible{background:linear-gradient(135deg,#5EE6B3,#35D49A);color:#06150F}
+.side:nth-child(2) .tag{background:linear-gradient(135deg,#35D49A,#1FAE7C);color:#06150F;box-shadow:0 0 14px rgba(53,212,154,.4)}
+#back{border-color:rgba(185,149,255,.5)}
+@media(max-width:480px){.prompt{flex-direction:column}.copy{position:static;width:100%}}
+</style>
+</head>
+<body>
+<header><h1 id="title">مكتبة البرومتات</h1><button id="back" hidden>رجوع</button></header>
+<main id="view"></main>
+
+<script>
+const ph=(t)=>"data:image/svg+xml;utf8,"+encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' width='300' height='400'><rect width='300' height='400' fill='#1A1230'/><text x='150' y='205' fill='#B995FF' font-size='28' text-anchor='middle' font-family='Arial'>${t}</text></svg>`);
+
+/* ═══════════════ طريقة التعديل ═══════════════
+ كل نموذج (بطاقة) فيه ثلاثة حقول فقط:
+   before : رابط مباشر لصورة "قبل"  (بين علامتي " ")
+   after  : رابط مباشر لصورة "بعد"  (بين علامتي " ")
+   video  : (أقسام الفيديو فقط) رابط مباشر لفيديو mp4 بدل after
+   prompt : نص البرومت (بين علامتي ` ` ويقبل عدة أسطر)
+ • اترك before أو after فارغًا ليظهر مكان الصورة فقط.
+ • لا تحذف الفاصلة بعد before وبعد after.
+ • لتغيير اسم أي قسم عدّل الكلمة بجانب name.
+ • لا تكتب علامة ` أو ${ داخل نص البرومت.
+ • كل قسم فرعي فيه 4 نماذج، ويمكنك نسخ أي نموذج { ... } وإضافته.
+════════════════════════════════════════════════ */
+const DATA=[
+
+ /* ═══════════ القسم الرئيسي: برومتات للصور ═══════════ */
+ { name:"برومتات للصور", sub:[
+
+  /* ───── القسم الفرعي: برومتات للصور الإعلانية ───── */
+  { name:"برومتات للصور الإعلانية", cards:[
+      { /* ---- نموذج 1 ---- */
+        before: "",   // ← ضع هنا رابط صورة "قبل" بين علامتي التنصيص
+        after:  "",   // ← ضع هنا رابط صورة "بعد" بين علامتي التنصيص
+        prompt: `اكتب هنا برومت الصور الإعلانية رقم 1`  // ← اكتب البرومت بين العلامتين ` ` (يقبل أسطرًا متعددة)
+      },
+      { /* ---- نموذج 2 ---- */
+        before: "",   // ← ضع هنا رابط صورة "قبل" بين علامتي التنصيص
+        after:  "",   // ← ضع هنا رابط صورة "بعد" بين علامتي التنصيص
+        prompt: `اكتب هنا برومت الصور الإعلانية رقم 2`  // ← اكتب البرومت بين العلامتين ` ` (يقبل أسطرًا متعددة)
+      },
+      { /* ---- نموذج 3 ---- */
+        before: "",   // ← ضع هنا رابط صورة "قبل" بين علامتي التنصيص
+        after:  "",   // ← ضع هنا رابط صورة "بعد" بين علامتي التنصيص
+        prompt: `اكتب هنا برومت الصور الإعلانية رقم 3`  // ← اكتب البرومت بين العلامتين ` ` (يقبل أسطرًا متعددة)
+      },
+      { /* ---- نموذج 4 ---- */
+        before: "",   // ← ضع هنا رابط صورة "قبل" بين علامتي التنصيص
+        after:  "",   // ← ضع هنا رابط صورة "بعد" بين علامتي التنصيص
+        prompt: `اكتب هنا برومت الصور الإعلانية رقم 4`  // ← اكتب البرومت بين العلامتين ` ` (يقبل أسطرًا متعددة)
+      }
+  ]},
+
+  /* ───── القسم الفرعي: برومتات للصور الشخصية ───── */
+  { name:"برومتات للصور الشخصية", cards:[
+      { /* ---- نموذج 1 ---- */
+        before: "https://e.top4top.io/p_39808gfke1.jpg",   // ← ضع هنا رابط صورة "قبل" بين علامتي التنصيص
+        after:  "https://h.top4top.io/p_39800ykpy1.jpg",   // ← ضع هنا رابط صورة "بعد" بين علامتي التنصيص
+        prompt: `/outpaint`  // ← اكتب البرومت بين العلامتين ` ` (يقبل أسطرًا متعددة)
+      },
+      { /* ---- نموذج 2 ---- */
+        before: "https://l.top4top.io/p_3980j9x1j1.jpg",   // ← ضع هنا رابط صورة "قبل" بين علامتي التنصيص
+        after:  "https://b.top4top.io/p_39807wxrq1.jpg",   // ← ضع هنا رابط صورة "بعد" بين علامتي التنصيص
+        prompt: `/restore`  // ← اكتب البرومت بين العلامتين ` ` (يقبل أسطرًا متعددة)
+      },
+      { /* ---- نموذج 3 ---- */
+        before: "https://f.top4top.io/p_3980j9uk81.jpg",   // ← ضع هنا رابط صورة "قبل" بين علامتي التنصيص
+        after:  "https://f.top4top.io/p_3980bwcex1.jpg",   // ← ضع هنا رابط صورة "بعد" بين علامتي التنصيص
+        prompt: `/removebg`  // ← اكتب البرومت بين العلامتين ` ` (يقبل أسطرًا متعددة)
+      },
+      { /* ---- نموذج 4 ---- */
+        before: "",   // ← ضع هنا رابط صورة "قبل" بين علامتي التنصيص
+        after:  "",   // ← ضع هنا رابط صورة "بعد" بين علامتي التنصيص
+        prompt: `اكتب هنا برومت الصور الشخصية رقم 4`  // ← اكتب البرومت بين العلامتين ` ` (يقبل أسطرًا متعددة)
+      }
+  ]},
+
+  /* ───── القسم الفرعي: قسم الصور الثالث (عدّل اسمه) ───── */
+  { name:"قسم مخططات تعليمية", cards:[
+      { /* ---- نموذج 1 ---- */
+        before: "https://b.top4top.io/p_398056kyw1.jpg",   // ← ضع هنا رابط صورة "قبل" بين علامتي التنصيص
+        after:  "https://d.top4top.io/p_3980gvu6r1.jpg",   // ← ضع هنا رابط صورة "بعد" بين علامتي التنصيص
+        prompt: `/mind-map`  // ← اكتب البرومت بين العلامتين ` ` (يقبل أسطرًا متعددة)
+      },
+      { /* ---- نموذج 2 ---- */
+        before: "",   // ← ضع هنا رابط صورة "قبل" بين علامتي التنصيص
+        after:  "",   // ← ضع هنا رابط صورة "بعد" بين علامتي التنصيص
+        prompt: `اكتب هنا برومت القسم الثالث رقم 2`  // ← اكتب البرومت بين العلامتين ` ` (يقبل أسطرًا متعددة)
+      },
+      { /* ---- نموذج 3 ---- */
+        before: "",   // ← ضع هنا رابط صورة "قبل" بين علامتي التنصيص
+        after:  "",   // ← ضع هنا رابط صورة "بعد" بين علامتي التنصيص
+        prompt: `اكتب هنا برومت القسم الثالث رقم 3`  // ← اكتب البرومت بين العلامتين ` ` (يقبل أسطرًا متعددة)
+      },
+      { /* ---- نموذج 4 ---- */
+        before: "",   // ← ضع هنا رابط صورة "قبل" بين علامتي التنصيص
+        after:  "",   // ← ضع هنا رابط صورة "بعد" بين علامتي التنصيص
+        prompt: `اكتب هنا برومت القسم الثالث رقم 4`  // ← اكتب البرومت بين العلامتين ` ` (يقبل أسطرًا متعددة)
+      }
+  ]}
+ ]},
+
+ /* ═══════════ القسم الرئيسي: برومتات للفيديوهات ═══════════ */
+ { name:"برومتات للفيديوهات", sub:[
+
+  /* ───── القسم الفرعي: قسم الفيديو الأول (عدّل اسمه) ───── */
+  { name:"قسم الفيديو الأول (عدّل اسمه)", cards:[
+      { /* ---- نموذج 1 ---- */
+        before: "",   // ← ضع هنا رابط صورة "قبل" (صورة الغلاف) بين علامتي التنصيص
+        video:  "",   // ← ضع هنا رابط الفيديو المباشر mp4 بين علامتي التنصيص
+        prompt: `اكتب هنا برومت الفيديو الأول رقم 1`  // ← اكتب البرومت بين العلامتين ` ` (يقبل أسطرًا متعددة)
+      },
+      { /* ---- نموذج 2 ---- */
+        before: "",   // ← ضع هنا رابط صورة "قبل" (صورة الغلاف) بين علامتي التنصيص
+        video:  "",   // ← ضع هنا رابط الفيديو المباشر mp4 بين علامتي التنصيص
+        prompt: `اكتب هنا برومت الفيديو الأول رقم 2`  // ← اكتب البرومت بين العلامتين ` ` (يقبل أسطرًا متعددة)
+      },
+      { /* ---- نموذج 3 ---- */
+        before: "",   // ← ضع هنا رابط صورة "قبل" (صورة الغلاف) بين علامتي التنصيص
+        video:  "",   // ← ضع هنا رابط الفيديو المباشر mp4 بين علامتي التنصيص
+        prompt: `اكتب هنا برومت الفيديو الأول رقم 3`  // ← اكتب البرومت بين العلامتين ` ` (يقبل أسطرًا متعددة)
+      },
+      { /* ---- نموذج 4 ---- */
+        before: "",   // ← ضع هنا رابط صورة "قبل" (صورة الغلاف) بين علامتي التنصيص
+        video:  "",   // ← ضع هنا رابط الفيديو المباشر mp4 بين علامتي التنصيص
+        prompt: `اكتب هنا برومت الفيديو الأول رقم 4`  // ← اكتب البرومت بين العلامتين ` ` (يقبل أسطرًا متعددة)
+      }
+  ]},
+
+  /* ───── القسم الفرعي: قسم الفيديو الثاني (عدّل اسمه) ───── */
+  { name:"قسم الفيديو الثاني (عدّل اسمه)", cards:[
+      { /* ---- نموذج 1 ---- */
+        before: "",   // ← ضع هنا رابط صورة "قبل" (صورة الغلاف) بين علامتي التنصيص
+        video:  "",   // ← ضع هنا رابط الفيديو المباشر mp4 بين علامتي التنصيص
+        prompt: `اكتب هنا برومت الفيديو الثاني رقم 1`  // ← اكتب البرومت بين العلامتين ` ` (يقبل أسطرًا متعددة)
+      },
+      { /* ---- نموذج 2 ---- */
+        before: "",   // ← ضع هنا رابط صورة "قبل" (صورة الغلاف) بين علامتي التنصيص
+        video:  "",   // ← ضع هنا رابط الفيديو المباشر mp4 بين علامتي التنصيص
+        prompt: `اكتب هنا برومت الفيديو الثاني رقم 2`  // ← اكتب البرومت بين العلامتين ` ` (يقبل أسطرًا متعددة)
+      },
+      { /* ---- نموذج 3 ---- */
+        before: "",   // ← ضع هنا رابط صورة "قبل" (صورة الغلاف) بين علامتي التنصيص
+        video:  "",   // ← ضع هنا رابط الفيديو المباشر mp4 بين علامتي التنصيص
+        prompt: `اكتب هنا برومت الفيديو الثاني رقم 3`  // ← اكتب البرومت بين العلامتين ` ` (يقبل أسطرًا متعددة)
+      },
+      { /* ---- نموذج 4 ---- */
+        before: "",   // ← ضع هنا رابط صورة "قبل" (صورة الغلاف) بين علامتي التنصيص
+        video:  "",   // ← ضع هنا رابط الفيديو المباشر mp4 بين علامتي التنصيص
+        prompt: `اكتب هنا برومت الفيديو الثاني رقم 4`  // ← اكتب البرومت بين العلامتين ` ` (يقبل أسطرًا متعددة)
+      }
+  ]}
+ ]}
+];
+
+const PH=ph("تعذر تحميل الصورة");
+const view=document.getElementById("view"),title=document.getElementById("title"),back=document.getElementById("back");
+let path=[]; // [] الرئيسية | [i] الأقسام الفرعية | [i,j] البطاقات
+
+function vid(u){
+  if(!u)return '<div class="vph"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>مكان الفيديو</div>';
+  return `<video controls playsinline preload="metadata" src="${esc(u)}" onerror="this.outerHTML='<div class=vph>تعذر تشغيل الفيديو، تأكد أن الرابط mp4 مباشر</div>'"></video>`;
+}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+
+function render(){
+  back.hidden=!path.length;
+  if(path.length===0){
+    title.textContent="مكتبة البرومتات";
+    view.innerHTML='<div class="grid">'+DATA.map((s,i)=>`<button class="tile" data-i="${i}">${esc(s.name)}<small>${s.sub.length} أقسام</small></button>`).join("")+'</div>';
+    view.querySelectorAll(".tile").forEach(b=>b.onclick=()=>go([+b.dataset.i]));
+  }else if(path.length===1){
+    const sec=DATA[path[0]];title.textContent=sec.name;
+    view.innerHTML='<div class="grid">'+sec.sub.map((s,j)=>`<button class="tile" data-j="${j}">${esc(s.name)}<small>${s.cards.length} بطاقات</small></button>`).join("")+'</div>';
+    view.querySelectorAll(".tile").forEach(b=>b.onclick=()=>go([path[0],+b.dataset.j]));
+  }else{
+    const sub=DATA[path[0]].sub[path[1]];title.textContent=sub.name;
+    view.innerHTML=sub.cards.length?sub.cards.map((c,k)=>`
+      <article class="card">
+        <div class="pair">
+          <div class="side"><div class="tag">قبل</div><img onerror="this.onerror=null;this.src=PH" src="${esc(c.before||ph("قبل"))}" alt="قبل" loading="lazy"></div>
+          <div class="side"><div class="tag">بعد</div>${("video" in c)?vid(c.video):`<img onerror="this.onerror=null;this.src=PH" src="${esc(c.after||ph("بعد"))}" alt="بعد" loading="lazy">`}</div>
+        </div>
+        <div class="prompt"><p>${esc(c.prompt||"")}</p><button class="copy" data-k="${k}">نسخ</button></div>
+      </article>`).join(""):'<div class="empty">لا توجد بطاقات في هذا القسم بعد</div>';
+    view.querySelectorAll(".copy").forEach(b=>b.onclick=()=>copy(sub.cards[+b.dataset.k].prompt,b));
+  }
+  window.scrollTo(0,0);
+}
+function go(p){path=p;history.pushState({p},"");render()}
+back.onclick=()=>history.back();
+addEventListener("popstate",e=>{path=(e.state&&e.state.p)||[];render()});
+
+async function copy(text,btn){
+  let ok=false;
+  try{await navigator.clipboard.writeText(text);ok=true}catch(e){
+    const t=document.createElement("textarea");t.value=text;t.style.cssText="position:fixed;opacity:0";
+    document.body.appendChild(t);t.select();try{ok=document.execCommand("copy")}catch(_){}t.remove();
+  }
+  btn.textContent=ok?"تم النسخ":"فشل";btn.classList.toggle("ok",ok);
+  setTimeout(()=>{btn.textContent="نسخ";btn.classList.remove("ok")},1600);
+}
+history.replaceState({p:[]},"");render();
+</script>
+</body>
+</html>
