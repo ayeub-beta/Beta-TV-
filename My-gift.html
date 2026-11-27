@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>هديتي — اكتشف الهدية المناسبة</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🎁%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600&family=Reem+Kufi:wght@500;700&display=swap">
+<style>
+:root{--bg:#fff7f5;--ink:#3b2230;--mut:#7d6572;--rose:#d6457a;--blush:#fbd9e3;--sage:#e3eee4;--gold:#c9963b;--card:#fff;--line:#f0d9df}
+@media(prefers-color-scheme:dark){:root{--bg:#24141d;--ink:#fbeaf0;--mut:#c4a7b4;--blush:#4a2536;--sage:#2c3b30;--card:#321c28;--line:#4d2d3d}}
+*{box-sizing:border-box}
+html{scroll-padding-top:70px}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.7 "IBM Plex Sans Arabic",Tahoma,sans-serif;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
+h1,h2,h3{font-family:"Reem Kufi","IBM Plex Sans Arabic",serif;margin:0;line-height:1.3}
+button,input,select,textarea{font:inherit;color:inherit}
+.wrap{max-width:980px;margin:auto;padding:0 16px}
+header{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;gap:12px;padding:10px 0}
+.logo{font:700 26px "Reem Kufi",serif;color:var(--rose);margin-inline-end:auto}
+nav{display:flex;gap:6px;overflow-x:auto;padding-bottom:10px}
+nav button{white-space:nowrap;border:1px solid var(--line);background:var(--card);border-radius:99px;padding:6px 16px;cursor:pointer}
+nav button[aria-current=true]{background:var(--rose);color:#fff;border-color:var(--rose)}
+.cartb{position:relative}
+.badge{background:var(--gold);color:#fff;border-radius:99px;font-size:12px;padding:0 7px;margin-inline-start:6px}
+main{padding:24px 0 60px}
+.hero{background:var(--blush);border-radius:24px;padding:32px 24px;margin-bottom:28px}
+.hero h1{font-size:clamp(28px,6vw,44px)}
+.hero p{max-width:46ch;color:var(--mut)}
+.btn{background:var(--rose);color:#fff;border:0;border-radius:12px;padding:10px 20px;cursor:pointer;font-weight:600}
+.btn.alt{background:transparent;color:var(--rose);border:1.5px solid var(--rose)}
+.btn:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.chip{border:1px solid var(--line);background:var(--card);border-radius:99px;padding:5px 14px;cursor:pointer}
+.chip.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.tools{display:flex;gap:10px;flex-wrap:wrap}
+.tools input{flex:1;min-width:160px}
+input,select,textarea{width:100%;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+label{display:block;margin:12px 0 4px;font-weight:500}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:16px;margin-top:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;display:flex;flex-direction:column}
+.pic{height:130px;display:grid;place-items:center;font-size:56px;position:relative}
+.demo{position:absolute;top:8px;inset-inline-start:8px;font-size:12px;background:var(--card);border-radius:99px;padding:0 8px;color:var(--mut)}
+.fav{position:absolute;top:6px;inset-inline-end:8px;background:none;border:0;font-size:22px;cursor:pointer}
+.cb{padding:14px;display:flex;flex-direction:column;gap:6px;flex:1}
+.cb p{margin:0;color:var(--mut);font-size:14px}
+.price{font-weight:600;color:var(--rose)}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:auto}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:20px;max-width:620px}
+.steps{display:flex;gap:6px;margin-bottom:14px}
+.steps i{flex:1;height:6px;border-radius:9px;background:var(--line)}
+.steps i.on{background:var(--rose)}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.why{font-size:14px;color:var(--mut)}
+.line{display:flex;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.line .pic{height:54px;width:54px;font-size:28px;border-radius:12px;flex:none}
+.qty button{width:30px;height:30px;border-radius:8px;border:1px solid var(--line);background:var(--card);cursor:pointer}
+.out{white-space:pre-wrap;background:var(--sage);border-radius:12px;padding:12px;margin-top:12px;font-size:14px}
+.note{font-size:13px;color:var(--mut);margin-top:24px}
+.empty{padding:30px;text-align:center;color:var(--mut)}
+svg.cardsvg{max-width:100%;height:auto;border-radius:14px;margin-top:12px}
+@media(prefers-reduced-motion:no-preference){.view{animation:in .25s ease}@keyframes in{from{opacity:0}}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <div class="bar"><div class="logo">هديتي 🎁</div><button class="btn alt cartb" id="cartBtn">السلة<span class="badge" id="cnt">0</span></button></div>
+  <nav id="nav"></nav>
+</div></header>
+<main class="wrap" id="app"></main>
+<script>
+// ===== إعدادات: ضع رقمك هنا بالصيغة الدولية بدون + (مثال 9647701234567) ليُرسل الطلب إلى واتساب =====
+const WHATSAPP = "";
+
+const OCC = ["عيد ميلاد","تخرج","زواج وخطوبة","نجاح وتميّز","شكر وامتنان","بدون مناسبة"];
+const INT = ["القراءة","الفن","التكنولوجيا","الرياضة","العناية الشخصية","القهوة","الطبيعة","الموسيقى"];
+const GOV = ["الأنبار","بغداد","نينوى","أربيل","البصرة","بابل","كربلاء","النجف","ديالى","صلاح الدين","ذي قار","القادسية","واسط","المثنى","ميسان","دهوك","السليمانية","حلبجة"];
+const P = [
+ {id:"little-joy",n:"صندوق لحظات دافئة",e:"🎁",bg:"#fbd9e3",p:45000,d:"كوب خزفي وشمعة عطرية وعطر صغير مع ورد وتغليف وردي هادئ.",i:["العناية الشخصية","القهوة"],o:["عيد ميلاد","بدون مناسبة","شكر وامتنان"]},
+ {id:"read-and-relax",n:"للقراءة طقوس جميلة",e:"📚",bg:"#f3e6c9",p:25000,d:"كتابان وكوب خزفي وفاصل معدني وشمعة صغيرة بتنسيق دافئ.",i:["القراءة","القهوة"],o:["عيد ميلاد","تخرج","نجاح وتميّز","بدون مناسبة"]},
+ {id:"a-moment-for-you",n:"لحظة عناية لكِ",e:"🧴",bg:"#e3eee4",p:35000,d:"سلة عناية بمنشفة ناعمة وصابونة وشمعة: تستحقين وقتاً لنفسك.",i:["العناية الشخصية"],o:["عيد ميلاد","زواج وخطوبة","شكر وامتنان"]},
+ {id:"flowers-say-it",n:"ورد يحكي عنك",e:"💐",bg:"#f9d5d0",p:18000,d:"باقة من الورد الوردي والأبيض مع تغليف ناعم وبطاقة شخصية.",i:["الفن","الطبيعة"],o:["تخرج","زواج وخطوبة","شكر وامتنان","بدون مناسبة","نجاح وتميّز"]},
+ {id:"your-own-world",n:"عالمك على نغمتك",e:"🎧",bg:"#e0dcf3",p:65000,d:"سماعات لاسلكية بتصميم هادئ مع دفتر أنيق وقلم.",i:["التكنولوجيا","الموسيقى"],o:["عيد ميلاد","تخرج","نجاح وتميّز"]},
+ {id:"a-little-creativity",n:"مساحة صغيرة للإبداع",e:"🎨",bg:"#fde4c8",p:22000,d:"ألوان مائية ودفتر رسم وفرش خشبية بربطة وردية.",i:["الفن"],o:["عيد ميلاد","تخرج","نجاح وتميّز","بدون مناسبة"]}
+];
+const byId = id => P.find(x => x.id === id);
+const money = n => n.toLocaleString("ar-IQ") + " د.ع";
+const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const store = {
+  get(k, d){ try { return JSON.parse(localStorage.getItem(k)) ?? d } catch { return d } },
+  set(k, v){ try { localStorage.setItem(k, JSON.stringify(v)) } catch {} }
+};
+let cart = store.get("h-cart", {}), fav = store.get("h-fav", []);
+let view = "gifts", f = {q:"", occ:"", max:0}, quiz = {step:0, a:{who:"", occ:"", int:[], budget:50000, wrap:"أنيق وبسيط"}, done:false};
+let studio = {who:"", occ:OCC[0], tone:"دافئ", from:"", msg:""}, placed = "";
+
+const views = {gifts:"الهدايا", quiz:"مستشار الهدايا", studio:"استوديو البطاقات", cart:"السلة"};
+const $ = s => document.querySelector(s), app = $("#app");
+
+function save(){ store.set("h-cart", cart); store.set("h-fav", fav); $("#cnt").textContent = Object.values(cart).reduce((a,b)=>a+b,0) }
+function go(v){ view = v; render(); scrollTo(0,0) }
+function add(id){ cart[id] = (cart[id]||0) + 1; save(); render() }
+function toggleFav(id){ fav = fav.includes(id) ? fav.filter(x=>x!==id) : [...fav, id]; save(); render() }
+
+function cardHTML(p, why){
+  return `<article class="card"><div class="pic" style="background:${p.bg}"><span class="demo">عرض تجريبي</span>
+  <button class="fav" data-fav="${p.id}" aria-label="مفضلة" aria-pressed="${fav.includes(p.id)}">${fav.includes(p.id)?"❤️":"🤍"}</button>${p.e}</div>
+  <div class="cb"><h3>${p.n}</h3><p>${p.d}</p>${why?`<div class="why">${why}</div>`:""}
+  <div class="row"><span class="price">${money(p.p)}</span><button class="btn" data-add="${p.id}">أضف للسلة</button></div></div></article>`;
+}
+
+function vGifts(){
+  const list = P.filter(p => (!f.occ || p.o.includes(f.occ)) && (!f.max || p.p <= f.max) && (!f.q || (p.n+p.d+p.i.join()).includes(f.q)));
+  return `<section class="hero"><h1>هدية تقول ما لا تقوله الكلمات</h1><p>تصفّح الهدايا حسب المناسبة والميزانية، أو دع المستشار يقترح عليك ثلاث هدايا خلال دقيقة.</p><button class="btn" data-go="quiz">ابدأ المستشار</button></section>
+  <div class="tools"><input id="q" type="search" placeholder="ابحث عن هدية" value="${esc(f.q)}" aria-label="بحث">
+  <select id="mx" aria-label="الميزانية"><option value="0">كل الأسعار</option>${[25000,45000,65000].map(v=>`<option value="${v}" ${f.max==v?"selected":""}>حتى ${money(v)}</option>`).join("")}</select></div>
+  <div class="chips"><button class="chip ${f.occ?"":"on"}" data-occ="">كل المناسبات</button>${OCC.map(o=>`<button class="chip ${f.occ===o?"on":""}" data-occ="${o}">${o}</button>`).join("")}</div>
+  ${list.length ? `<div class="grid">${list.map(p=>cardHTML(p)).join("")}</div>` : `<div class="empty">لا توجد هدية بهذه الشروط. وسّع الميزانية أو اختر مناسبة أخرى.</div>`}
+  <p class="note">المنتجات والأسعار والصور في هذه النسخة تجريبية للعرض، وليست مخزوناً متاحاً للبيع.</p>`;
+}
+
+function recommend(a){
+  return P.map(p => {
+    let s = (p.o.includes(a.occ)?3:0) + a.int.filter(i=>p.i.includes(i)).length*2 + (p.p<=a.budget?2:-6);
+    const why = [p.o.includes(a.occ)?`مناسبة لـ${a.occ}`:"", a.int.filter(i=>p.i.includes(i)).length?`تناسب اهتمام ${a.int.filter(i=>p.i.includes(i)).join(" و")}`:"", p.p<=a.budget?"ضمن ميزانيتك":"أعلى من ميزانيتك"].filter(Boolean).join(" · ");
+    return {p, s, why};
+  }).sort((x,y)=>y.s-x.s).slice(0,3);
+}
+function vQuiz(){
+  const q = quiz, a = q.a, labels = ["الشخص","المناسبة","الاهتمامات","الميزانية","التغليف"];
+  if(q.done){
+    return `<h2>اقتراحاتنا لـ${esc(a.who||"من تحب")}</h2><div class="grid">${recommend(a).map(r=>cardHTML(r.p, r.why)).join("")}</div>
+    <p class="note">الترتيب محلي حسب المناسبة والاهتمامات والميزانية، ومن المنتجات الموجودة فقط. التغليف المختار: ${esc(a.wrap)}.</p><button class="btn alt" data-reset>ابدأ من جديد</button>`;
+  }
+  const ok = [!!a.who, !!a.occ, a.int.length>0, true, true][q.step];
+  const body = [
+    `<label for="who">لمن الهدية؟ (الاسم أو الصلة)</label><input id="who" value="${esc(a.who)}" placeholder="مثال: أختي نور">`,
+    `<div class="opts">${OCC.map(o=>`<button class="chip ${a.occ===o?"on":""}" data-pick="occ" data-v="${o}">${o}</button>`).join("")}</div>`,
+    `<div class="opts">${INT.map(o=>`<button class="chip ${a.int.includes(o)?"on":""}" data-multi="${o}">${o}</button>`).join("")}</div>`,
+    `<label for="bd">الميزانية: <b id="bv">${money(a.budget)}</b></label><input id="bd" type="range" min="15000" max="80000" step="5000" value="${a.budget}">`,
+    `<div class="opts">${["أنيق وبسيط","مرح وملوّن","فاخر","بدون تغليف"].map(o=>`<button class="chip ${a.wrap===o?"on":""}" data-pick="wrap" data-v="${o}">${o}</button>`).join("")}</div>`
+  ][q.step];
+  return `<div class="panel"><div class="steps">${labels.map((_,i)=>`<i class="${i<=q.step?"on":""}"></i>`).join("")}</div>
+  <h2>${labels[q.step]}</h2>${body}<div class="row" style="margin-top:20px">
+  <button class="btn alt" data-prev ${q.step?"":"disabled"}>السابق</button><button class="btn" data-next ${ok?"":"disabled"}>${q.step===4?"اعرض الاقتراحات":"التالي"}</button></div></div>`;
+}
+
+const tones = {
+ "دافئ": o => `إلى من يستحق كل الفرح، ${o}. أتمنى أن تحمل هذه الهدية شيئاً من محبتي، وأن تبقى أيامك مليئة بالأشياء الجميلة.`,
+ "رسمي": o => `بمناسبة ${o}، أتقدم إليك بخالص التهنئة والتقدير، وأرجو أن تنال هديتي رضاك.`,
+ "مرح": o => `${o} سعيد! هديتي صغيرة لكن قلبي كبير، فلا تدقق في الحجم وافتح الصندوق بسرعة.`
+};
+function vStudio(){
+  const s = studio, msg = s.msg || tones[s.tone](s.occ === "بدون مناسبة" ? "في يوم عادي يستحق أن يكون مميزاً" : s.occ);
+  const words = msg.split(" "), lines = []; let cur = "";
+  words.forEach(w => { if((cur+" "+w).trim().length > 30){ lines.push(cur); cur = w } else cur = (cur+" "+w).trim() }); lines.push(cur);
+  const svg = `<svg class="cardsvg" id="cardsvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" direction="rtl"><rect width="600" height="400" fill="#fbd9e3"/><rect x="16" y="16" width="568" height="368" rx="20" fill="#fff7f5" stroke="#c9963b" stroke-width="2"/><text x="300" y="80" font-size="40" text-anchor="middle">🎁</text><text x="300" y="130" font-size="22" font-weight="700" text-anchor="middle" fill="#d6457a" font-family="Tahoma,Arial,sans-serif">إلى ${esc(s.who||"من أحب")}</text>${lines.slice(0,6).map((l,i)=>`<text x="300" y="${180+i*34}" font-size="20" text-anchor="middle" fill="#3b2230" font-family="Tahoma,Arial,sans-serif">${esc(l)}</text>`).join("")}<text x="300" y="365" font-size="18" text-anchor="middle" fill="#7d6572" font-family="Tahoma,Arial,sans-serif">${esc(s.from?"من "+s.from:"")}</text></svg>`;
+  return `<div class="panel"><h2>بطاقة إهداء</h2>
+  <label for="sw">اسم المُهدى إليه</label><input id="sw" value="${esc(s.who)}">
+  <label for="sf">اسمك</label><input id="sf" value="${esc(s.from)}">
+  <label for="so">المناسبة</label><select id="so">${OCC.map(o=>`<option ${s.occ===o?"selected":""}>${o}</option>`).join("")}</select>
+  <label for="st">النبرة</label><select id="st">${Object.keys(tones).map(o=>`<option ${s.tone===o?"selected":""}>${o}</option>`).join("")}</select>
+  <label for="sm">الرسالة (عدّلها كما تشاء)</label><textarea id="sm" rows="4">${esc(msg)}</textarea>
+  ${svg}<div class="row" style="margin-top:14px"><button class="btn" data-dl>نزّل البطاقة</button><button class="btn alt" data-regen>رسالة جديدة</button></div></div>`;
+}
+
+function vCart(){
+  const ids = Object.keys(cart).filter(id => byId(id)), total = ids.reduce((t,id)=>t+byId(id).p*cart[id],0);
+  if(placed) return `<div class="panel"><h2>جاهز للإرسال</h2><p>انسخ الطلب وأرسله لنا لنؤكد التوفر والسعر والتوصيل.</p><div class="out" id="ordtxt">${esc(placed)}</div>
+  <div class="row" style="margin-top:12px"><button class="btn" data-copy>انسخ الطلب</button>${WHATSAPP?`<a class="btn" href="https://wa.me/${WHATSAPP}?text=${encodeURIComponent(placed)}" target="_blank" rel="noopener" style="text-decoration:none">أرسل عبر واتساب</a>`:""}
+  <button class="btn alt" data-done>طلب جديد</button></div></div>`;
+  if(!ids.length) return `<div class="empty">السلة فارغة. <button class="btn" data-go="gifts">تصفّح الهدايا</button></div>`;
+  return `<div class="panel" style="max-width:720px">${ids.map(id=>{const p=byId(id);return `<div class="line"><div class="pic" style="background:${p.bg}">${p.e}</div><div style="flex:1"><b>${p.n}</b><div class="price">${money(p.p*cart[id])}</div></div>
+  <div class="qty"><button data-q="${id}" data-d="1" aria-label="زيادة">+</button> ${cart[id]} <button data-q="${id}" data-d="-1" aria-label="إنقاص">−</button></div></div>`}).join("")}
+  <div class="row" style="margin:14px 0"><b>المجموع</b><b class="price">${money(total)}</b></div>
+  <h3>بيانات الطلب</h3>
+  <label for="on">الاسم</label><input id="on" autocomplete="name"><label for="op">رقم الهاتف</label><input id="op" type="tel" autocomplete="tel">
+  <label for="og">المحافظة</label><select id="og">${GOV.map(g=>`<option>${g}</option>`).join("")}</select>
+  <label for="oa">العنوان</label><input id="oa" autocomplete="street-address"><label for="om">رسالة الإهداء (اختياري)</label><textarea id="om" rows="2"></textarea>
+  <p id="err" class="why" style="color:var(--rose)" role="alert"></p><button class="btn" data-order>جهّز الطلب</button>
+  <p class="note">لا يوجد دفع إلكتروني. الطلب يُرسل إليك كنص لتأكيده مع المتجر.</p></div>`;
+}
+
+function render(){
+  $("#nav").innerHTML = Object.entries(views).map(([k,v])=>`<button data-go="${k}" ${view===k?'aria-current="true"':""}>${v}</button>`).join("");
+  app.innerHTML = `<div class="view">${{gifts:vGifts,quiz:vQuiz,studio:vStudio,cart:vCart}[view]()}</div>`;
+  save();
+}
+
+document.addEventListener("click", e => {
+  const t = e.target.closest("button,a"); if(!t) return; const d = t.dataset;
+  if(d.go) go(d.go);
+  else if(t.id === "cartBtn") go("cart");
+  else if(d.add) add(d.add);
+  else if(d.fav) toggleFav(d.fav);
+  else if(d.occ !== undefined && t.classList.contains("chip")){ f.occ = d.occ; render() }
+  else if(d.pick){ quiz.a[d.pick] = d.v; render() }
+  else if(d.multi){ const a = quiz.a.int; quiz.a.int = a.includes(d.multi) ? a.filter(x=>x!==d.multi) : [...a, d.multi]; render() }
+  else if("next" in d){ if(quiz.step === 4) quiz.done = true; else quiz.step++; render() }
+  else if("prev" in d){ quiz.step--; render() }
+  else if("reset" in d){ quiz = {step:0, a:{who:"", occ:"", int:[], budget:50000, wrap:"أنيق وبسيط"}, done:false}; render() }
+  else if(d.q){ cart[d.q] += +d.d; if(cart[d.q] <= 0) delete cart[d.q]; render() }
+  else if("regen" in d){ const keys = Object.keys(tones); studio.tone = keys[(keys.indexOf(studio.tone)+1)%keys.length]; studio.msg = ""; render() }
+  else if("dl" in d){
+    const blob = new Blob(['<?xml version="1.0" encoding="UTF-8"?>' + $("#cardsvg").outerHTML.replace('class="cardsvg" id="cardsvg" ','')], {type:"image/svg+xml"});
+    const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = "hedyati-card.svg"; a.click(); setTimeout(()=>URL.revokeObjectURL(a.href), 1000);
+  }
+  else if("order" in d){
+    const v = id => $("#"+id).value.trim();
+    if(!v("on") || !/^[0-9+\s-]{8,}$/.test(v("op")) || !v("oa")){ $("#err").textContent = "اكتب الاسم ورقم هاتف صحيحاً والعنوان."; return }
+    const ids = Object.keys(cart).filter(id=>byId(id)), total = ids.reduce((s,id)=>s+byId(id).p*cart[id],0);
+    placed = `طلب هدية (عرض تجريبي)\nالاسم: ${v("on")}\nالهاتف: ${v("op")}\nالمحافظة: ${v("og")}\nالعنوان: ${v("oa")}\n\n${ids.map(id=>`- ${byId(id).n} × ${cart[id]} = ${money(byId(id).p*cart[id])}`).join("\n")}\n\nالمجموع: ${money(total)}${v("om")?"\nرسالة الإهداء: "+v("om"):""}`;
+    render();
+  }
+  else if("copy" in d){ navigator.clipboard?.writeText(placed).then(()=>{ t.textContent = "تم النسخ" }, ()=>{ t.textContent = "حدد النص وانسخه يدوياً" }) }
+  else if("done" in d){ placed = ""; cart = {}; render() }
+});
+document.addEventListener("input", e => {
+  const t = e.target, id = t.id;
+  if(id==="q"){ f.q = t.value; const p = t.selectionStart; render(); const n = $("#q"); n.focus(); n.setSelectionRange(p,p) }
+  else if(id==="mx"){ f.max = +t.value; render() }
+  else if(id==="who"){ quiz.a.who = t.value; $("[data-next]").disabled = !t.value.trim() }
+  else if(id==="bd"){ quiz.a.budget = +t.value; $("#bv").textContent = money(+t.value) }
+  else if(id==="sw"||id==="sf"||id==="sm"){ studio[{sw:"who",sf:"from",sm:"msg"}[id]] = t.value; const p = t.selectionStart; render(); const n = $("#"+id); n.focus(); n.setSelectionRange(p,p) }
+  else if(id==="so"||id==="st"){ studio[id==="so"?"occ":"tone"] = t.value; studio.msg = ""; render() }
+});
+render();
+</script>
+</body>
+</html>
